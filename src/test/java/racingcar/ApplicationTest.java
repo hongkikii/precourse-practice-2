@@ -106,7 +106,7 @@ class ApplicationTest extends NsTest {
     @Test
     void countNotNumberTest() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("", "1&"))
+                assertThatThrownBy(() -> runException("mimi,pobi", "1&"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
@@ -126,12 +126,12 @@ class ApplicationTest extends NsTest {
     @Test
     void minCountTest() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("", "-1"))
+                assertThatThrownBy(() -> runException("mimi,pobi", "-1"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
 
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("", "0"))
+                assertThatThrownBy(() -> runException("mimi,pobi", "0"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
@@ -139,7 +139,7 @@ class ApplicationTest extends NsTest {
     @Test
     void maxCountTest() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("", "101"))
+                assertThatThrownBy(() -> runException("mimi,pobi", "101"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
