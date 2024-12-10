@@ -22,6 +22,6 @@ public class View {
             result.append(winner).append(", ");
         }
         result.delete(result.length() - 2, result.length());
-        System.out.println(result);
+        System.out.print(result);
     }
 }
