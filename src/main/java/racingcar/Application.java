@@ -10,5 +10,7 @@ public class Application {
 
         String carNames = Console.readLine();
         Car car = new Car(carNames);
+
+        view.showCountRequest();
     }
 }
