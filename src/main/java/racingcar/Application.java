@@ -15,5 +15,7 @@ public class Application {
 
         String count = Console.readLine();
         Game game = new Game(count);
+
+        view.showResultHeader();
     }
 }
