@@ -2,6 +2,7 @@ package racingcar;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Game {
@@ -11,7 +12,7 @@ public class Game {
     public Game(String count, Car car) {
         validate(count);
         this.count = Integer.parseInt(count);
-        this.result = new HashMap<>();
+        this.result = new LinkedHashMap<>();
         for (String carName : car.getCarNames()) {
             result.put(carName, new StringBuilder());
         }
@@ -33,6 +34,7 @@ public class Game {
     public void play() {
         for(int i=1; i<=count; i++) {
             playPerRound();
+            printRoundResult();
         }
     }
 
@@ -43,5 +45,12 @@ public class Game {
                 result.put(carName, result.get(carName).append("-"));
             }
         }
+    }
+
+    private void printRoundResult() {
+        for (String carName : result.keySet()) {
+            System.out.println(carName + " : " + result.get(carName));
+        }
+        System.out.println();
     }
 }
