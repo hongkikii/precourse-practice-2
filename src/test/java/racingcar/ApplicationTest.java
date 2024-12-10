@@ -1,12 +1,14 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationTest extends NsTest {
     private static final int MOVING_FORWARD = 4;
@@ -34,5 +36,69 @@ class ApplicationTest extends NsTest {
     @Override
     public void runMain() {
         Application.main(new String[]{});
+    }
+
+    @DisplayName("자동차의 이름이 0자인 경우 예외가 발생한다.")
+    @Test
+    void zeroNameTest() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException(",pobi", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,,mimi", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @DisplayName("자동차 이름이 공백만 포함할 경우 예외가 발생한다.")
+    @Test
+    void blankNameTest() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException(" ,mimi", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @DisplayName("자동차 개수가 100개인 경우 경우 정상 동작한다.")
+    @Test
+    void CarCountTest() {
+        StringBuilder carNames = new StringBuilder();
+        for (int i = 1; i <= 100; i++) {
+            carNames.append("a,");
+        }
+        carNames.deleteCharAt(carNames.length() - 1);
+        assertSimpleTest(() ->
+                assertDoesNotThrow(() -> runException(carNames.toString(), "1"))
+        );
+    }
+
+    @DisplayName("자동차 개수가 0개인 경우 예외가 발생한다.")
+    @Test
+    void minCarTest() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @DisplayName("자동차 개수가 101개 이상인 경우 경우 예외가 발생한다.")
+    @Test
+    void maxCarTest() {
+        StringBuilder carNames = new StringBuilder();
+        for (int i = 1; i <= 101; i++) {
+            carNames.append("a,");
+        }
+        carNames.deleteCharAt(carNames.length() - 1);
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException(carNames.toString(), "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
     }
 }
