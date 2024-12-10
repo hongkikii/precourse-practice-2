@@ -1,8 +1,9 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Game {
@@ -52,5 +53,23 @@ public class Game {
             System.out.println(carName + " : " + result.get(carName));
         }
         System.out.println();
+    }
+
+    public List<String> getWinners() {
+        List<String> winners = new ArrayList<>();
+        int maxMoveCount = 0;
+        for (String carName : result.keySet()) {
+            String move = result.get(carName).toString();
+            if (move.length() > maxMoveCount) {
+                maxMoveCount = move.length();
+                winners.clear();
+                winners.add(carName);
+                continue;
+            }
+            if (move.length() == maxMoveCount) {
+                winners.add(carName);
+            }
+        }
+        return winners;
     }
 }

@@ -1,6 +1,7 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
@@ -19,5 +20,7 @@ public class Application {
         Game game = new Game(count, car);
         game.play();
 
+        List<String> winners = game.getWinners();
+        view.show(winners);
     }
 }
