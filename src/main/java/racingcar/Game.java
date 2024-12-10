@@ -19,6 +19,31 @@ public class Game {
         }
     }
 
+    public List<String> getWinners() {
+        List<String> winners = new ArrayList<>();
+        int maxMoveCount = 0;
+        for (String carName : result.keySet()) {
+            String move = result.get(carName).toString();
+            if (move.length() > maxMoveCount) {
+                maxMoveCount = move.length();
+                winners.clear();
+                winners.add(carName);
+                continue;
+            }
+            if (move.length() == maxMoveCount) {
+                winners.add(carName);
+            }
+        }
+        return winners;
+    }
+
+    public void play() {
+        for(int i=1; i<=count; i++) {
+            playPerRound();
+            printRoundResult();
+        }
+    }
+
     private void validate(String count) {
         int number;
         try {
@@ -29,13 +54,6 @@ public class Game {
         }
         if (number <= 0 || number >= 101) {
             throw new IllegalArgumentException();
-        }
-    }
-
-    public void play() {
-        for(int i=1; i<=count; i++) {
-            playPerRound();
-            printRoundResult();
         }
     }
 
@@ -53,23 +71,5 @@ public class Game {
             System.out.println(carName + " : " + result.get(carName));
         }
         System.out.println();
-    }
-
-    public List<String> getWinners() {
-        List<String> winners = new ArrayList<>();
-        int maxMoveCount = 0;
-        for (String carName : result.keySet()) {
-            String move = result.get(carName).toString();
-            if (move.length() > maxMoveCount) {
-                maxMoveCount = move.length();
-                winners.clear();
-                winners.add(carName);
-                continue;
-            }
-            if (move.length() == maxMoveCount) {
-                winners.add(carName);
-            }
-        }
-        return winners;
     }
 }
