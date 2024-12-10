@@ -101,4 +101,46 @@ class ApplicationTest extends NsTest {
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
+
+    @DisplayName("시도 횟수에 문자가 포함될 경우 예외가 발생한다.")
+    @Test
+    void countNotNumberTest() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("", "1&"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @DisplayName("시도 횟수는 1 이상 100 이하여야 한다.")
+    @Test
+    void countTest() {
+        assertSimpleTest(() ->
+                assertDoesNotThrow(() -> runException("mimi,pobi", "1"))
+        );
+        assertSimpleTest(() ->
+                assertDoesNotThrow(() -> runException("mimi,pobi", "100"))
+        );
+    }
+
+    @DisplayName("시도 횟수가 0 이하인 경우 예외가 발생한다.")
+    @Test
+    void minCountTest() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("", "-1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("", "0"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+    @DisplayName("시도 횟수가 101 이상인 경우 예외가 발생한다.")
+    @Test
+    void maxCountTest() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("", "101"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
 }

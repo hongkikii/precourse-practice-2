@@ -12,5 +12,8 @@ public class Application {
         Car car = new Car(carNames);
 
         view.showCountRequest();
+
+        String count = Console.readLine();
+        Game game = new Game(count);
     }
 }
